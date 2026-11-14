@@ -1,0 +1,24 @@
+# DOMAS MAPPO training defaults.
+# Observation/action dimensions match mappo.envs.VirtualTurtlebot.EnvCore
+# (24 LiDAR beams + 4 normalised state values = 28; [linear_vel, angular_vel]).
+# The lightweight mappo.envs.env_core.EnvCore uses 14 / 5 instead.
+env_name: "DOMAS"
+num_agents: 4
+obs_dim: 28
+act_dim: 2
+
+training:
+  max_steps: 1000000
+  eval_interval: 10000
+  save_interval: 50000
+
+agent:
+  learning_rate: 0.0003
+  gamma: 0.99
+  entropy_coef: 0.01
+  clip_param: 0.2
+  update_epochs: 10
+
+policy:
+  hidden_sizes: [64, 64]
+  activation: "tanh"

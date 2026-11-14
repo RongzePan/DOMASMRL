@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mappo</name>
+  <version>0.1.0</version>
+  <description>MAPPO (Multi-Agent PPO) training stack for the DOMAS multi-TurtleBot reinforcement learning project.</description>
+  <maintainer email="rongzepan@example.com">Rongze Pan</maintainer>
+  <license>MIT</license>
+  <url type="website">https://github.com/</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <!-- Python packages installed with pip (not rosdep keys):
+       torch, gym/gymnasium, matplotlib, tensorboardX, imageio, setproctitle, wandb -->
+
+  <export>
+    <architecture_independent/>
+  </export>
+</package>

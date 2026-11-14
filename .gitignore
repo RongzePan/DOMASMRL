@@ -1,0 +1,50 @@
+# ---- Catkin / ROS build products (pre-existing rules) ----------------------
+ROS_ws/build/*
+ROS_ws/build/
+ROS_ws/devel/*
+ROS_ws/devel/
+ROS_ws/install/
+
+# Vendored third-party ROS packages carry their own nested .git directories.
+# They are external dependencies, not part of this standalone repository.
+ROS_ws/src/turtlebot3*
+
+# ---- Python / IDE / local environment --------------------------------------
+.venv/
+venv/
+.idea/
+.vscode/
+.workbuddy/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ---- Generated experiment artifacts ---------------------------------------
+# ROS_ws/results/figures/*.png is intentionally kept (report figures).
+*.pt
+*.pth
+*.ckpt
+*.log
+ROS_ws/results/**/logs/
+ROS_ws/results/**/models/
+ROS_ws/results/**/gifs/
+events.out.tfevents.*
+
+# ---- OS / editor noise -----------------------------------------------------
+.DS_Store
+Thumbs.db
+*.swp
+*~
+*.blend1
+*.db
+
+# Windows shell cache spilled into the workspace by an unexpanded
+# %SystemDrive% variable -- system files, never project sources.
+ROS_ws/%SystemDrive%/
+ROS_ws/%*/
+
+# ---- Legacy placeholders (pre-existing rules) ------------------------------
+Dockerfile
+Makefile

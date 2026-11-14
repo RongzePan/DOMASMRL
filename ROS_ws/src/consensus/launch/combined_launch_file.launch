@@ -1,0 +1,19 @@
+<launch>
+    <!-- 启动 Gazebo 仿真环境 -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <!-- 可以选择添加世界文件路径 -->
+        <arg name="world_name" value="$(find sim_world)/world/emptypark.world"/>
+    </include>
+    
+    <!-- 启动 DOMAS 机器人控制节点 -->
+    <node pkg="consensus" type="control_robots.py" name="control_robots" output="screen">
+        <!-- 配置参数，如果有 -->
+        <param name="robot_namespace" value="domas_robots"/>
+    </node>
+    
+    <!-- 启动 MAPPO 训练节点 -->
+    <node pkg="mappo" type="train_mpe.sh" name="train_mappo" output="screen">
+        <!-- 配置训练脚本的参数（如果需要） -->
+        <param name="config_file" value="$(find mappo)/config/train_config.yaml"/>
+    </node>
+</launch>

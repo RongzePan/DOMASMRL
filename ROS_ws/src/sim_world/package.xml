@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>sim_world</name>
+  <version>0.1.0</version>
+  <description>Gazebo worlds and models (parking block, AprilTag docks, target and wall) for the DOMAS simulations.</description>
+  <maintainer email="rongzepan@example.com">Rongze Pan</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>gazebo_ros</exec_depend>
+
+  <export>
+    <architecture_independent/>
+    <gazebo_ros gazebo_model_path="${prefix}/model"/>
+  </export>
+</package>

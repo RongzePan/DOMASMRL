@@ -1,0 +1,8 @@
+# Optional tooling for tools/verify_build.py.
+# The verification driver degrades gracefully (SKIP, not FAIL) when these are
+# absent.  Install them into whichever interpreter runs the script to enable
+# the full check set:
+#   python -m pip install -r tools/requirements-verify.txt
+cmake>=3.20
+PyYAML>=6.0
+setuptools>=60
