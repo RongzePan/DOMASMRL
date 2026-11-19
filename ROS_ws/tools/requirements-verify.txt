@@ -6,3 +6,6 @@
 cmake>=3.20
 PyYAML>=6.0
 setuptools>=60
+# Required by stages 6 and 7 (import smoke test + functional smoke tests);
+# without it those stages are reported as SKIP instead of failing.
+numpy>=1.24

@@ -672,7 +672,13 @@ def _mod(name, **attrs):
 
 
 def _install_stubs():
-    import numpy as np
+    # numpy is a real dependency of the import/functional stages.  Keep the
+    # stub installer itself importable without it so callers can degrade
+    # gracefully (SKIP) rather than crash the whole stage.
+    try:
+        import numpy as np
+    except ImportError:  # pragma: no cover - depends on the host environment
+        np = None
 
     # ---- ROS message / service modules ------------------------------------
     ros_modules = [
@@ -749,7 +755,8 @@ def _install_stubs():
         "torch", nn=nn, cuda=cuda, backends=backends, distributions=dist, optim=optim,
         device=_Device, float32="torch.float32", float64="torch.float64",
         Tensor=_Any("Tensor"), no_grad=_no_grad,
-        from_numpy=lambda x: np.asarray(x), tensor=lambda *a, **k: _Any("tensor"),
+        from_numpy=lambda x: np.asarray(x) if np is not None else x,
+        tensor=lambda *a, **k: _Any("tensor"),
         zeros=lambda *a, **k: _Any("zeros"), ones=lambda *a, **k: _Any("ones"),
         cat=lambda *a, **k: _Any("cat"), clamp=lambda *a, **k: _Any("clamp"),
         exp=lambda *a, **k: _Any("exp"), max=lambda *a, **k: _Any("max"),
@@ -765,6 +772,11 @@ def _install_stubs():
 
 
 def stage_import_smoke(rep):
+    if importlib.util.find_spec("numpy") is None:
+        rep.skip("6-import-smoke", "Import smoke test (numpy required)",
+                 "numpy not installed in this interpreter; "
+                 "python -m pip install -r tools/requirements-verify.txt")
+        return
     _install_stubs()
     sys.path.insert(0, str(SRC))
     mods = []
@@ -789,6 +801,11 @@ def stage_import_smoke(rep):
 
 # --------------------------------------------------------------------------- 7
 def stage_functional(rep):
+    if importlib.util.find_spec("numpy") is None:
+        rep.skip("7-functional", "Functional smoke tests (numpy required)",
+                 "numpy not installed in this interpreter; "
+                 "python -m pip install -r tools/requirements-verify.txt")
+        return
     import numpy as np
 
     def check(name, fn):
